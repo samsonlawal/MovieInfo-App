@@ -1,100 +1,52 @@
 import "./index.css";
+import React from "react";
+import Header from "./Header";
+import Cards from "./Cards";
 
 function App() {
+  // const [moviesData, setMoviesData] = React.useState({});
+
+  const [movieData, setMovieData] = React.useState([]);
+
+  React.useEffect(() => {
+    fetch(
+      "https://api.themoviedb.org/3/movie/now_playing?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US&page=1"
+    )
+      .then((res) => res.json())
+      .then((data) => setMovieData(data.results));
+  }, [movieData.id]);
+
+  let poster = `https://www.themoviedb.org/t/p/w500/`;
+
+  const all = movieData.map((item) => {
+    return (
+      <Cards
+        movieTitle={item.original_title}
+        date={item.release_date.slice(0, 4)}
+        posterPath={`${poster}${item.poster_path}`}
+        id={item.id}
+        key={item.id}
+      />
+    );
+  });
+
   return (
     <div className="App">
-      <header className="App-header">
-        <nav>
-          <label>
-            Movie<i class="fas fa-film"></i>Info
-          </label>
-          <div className="nav-div">
-            <input type="text" placeholder="Quick Search" />
-            <ul>
-              <li>
-                <a href="#">Trending</a>
-              </li>
-              <li>
-                <a href="#">Watchlist</a>
-              </li>
-            </ul>
-          </div>
-        </nav>
-      </header>
-
-      {/* <article>
-        <h1>Get Quick Update on New Movies and TV Series Release</h1>
-      </article> */}
-
-      <section>
-        <div className="card">
-          <div className>
-            <img
-              className="poster"
-              src="https://m.media-amazon.com/images/M/MV5BOTdmNTFjNDEtNzg0My00ZjkxLTg1ZDAtZTdkMDc2ZmFiNWQ1XkEyXkFqcGdeQXVyNTAzNzgwNTg@._V1_.jpg"
-              alt=""
-            />
-          </div>
-          <div className="info">
-            <h2 className="title">1971</h2>
-            <p className="type">Movie</p>
-            <div className="movie-info">
-              <p className="genre">Action</p>
-              <p className="year">2022</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="card">
-          <img
-            className="poster"
-            src="https://m.media-amazon.com/images/M/MV5BOTBhZGJjYjQtODRjOC00MWJhLTk1NTctZDJiM2JkMTY3MGNiXkEyXkFqcGdeQXVyMTA3MDk2NDg2._V1_FMjpg_UX1181_.jpg"
-            alt=""
-          />
-          <div className="info">
-            <h2 className="title">Bullet Train</h2>
-            <p className="type">Movie</p>
-            <div className="movie-info">
-              <p className="genre">Action</p>
-              <p className="year">2022</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="card">
-          <img
-            className="poster"
-            src="https://m.media-amazon.com/images/M/MV5BMThlNTk3YzMtOTZjMi00M2NiLTg1NTgtYThiYzE2MDFmMDUwXkEyXkFqcGdeQXVyNzA5NjUyNjM@._V1_FMjpg_UX720_.jpg"
-            alt=""
-          />
-          <div className="info">
-            <h2 className="title">Teen Wolf</h2>
-            <p className="type">Series</p>
-            <div className="movie-info">
-              <p className="genre">Action/Horror</p>
-              <p className="year">2011 - 2017</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="card">
-          <img
-            className="poster"
-            src="https://m.media-amazon.com/images/M/MV5BYmY5YmJiM2QtNjdhOC00NjRhLTgyNDEtYmM1NmJhNjc5NDE2XkEyXkFqcGdeQXVyMjQ4ODcxNTM@._V1_FMjpg_UX810_.jpg"
-            alt=""
-          />
-          <div className="info">
-            <h2 className="title">Halo</h2>
-            <p className="type">Series</p>
-            <div className="movie-info">
-              <p className="genre">Action/Sci-Fi</p>
-              <p className="year">2022</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <Header />
+      <section>{all}</section>
+      {/* <Cards
+        movieTitle={movieData.original_title}
+        posterPath={poster}
+        date={date.slice(0, 4)}
+      /> */}
     </div>
   );
 }
 
 export default App;
+
+{
+  /* <article>
+        <h1>Get Quick Update on New Movies and TV Series Release</h1>
+      </article> */
+}
