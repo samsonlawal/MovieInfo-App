@@ -96,10 +96,10 @@ section {
   /* padding: 20px; */
 }
 
-.poster:hover {
+/* .poster:hover {
   border: 5px solid #df7861;
   transition: ease-in-out 0.3s;
-}
+} */
 
 .poster {
   max-width: 100%;

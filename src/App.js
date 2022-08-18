@@ -24,9 +24,15 @@ function App() {
   const MovieCard = movieData.map((item) => {
     return (
       <Cards
-        movieTitle={item.original_title}
-        date={item.release_date ? item.release_date.slice(0, 4) : "Null"}
-        posterPath={item.poster_path ? `${poster}${item.poster_path}` : ""}
+        movieTitle={
+          item.original_title ? item.original_title : item.original_name
+        }
+        date={item.release_date || item.first_air_date || "No date"}
+        posterPath={
+          item.poster_path
+            ? `${poster}${item.poster_path}`
+            : "https://www.prokerala.com/movies/assets/img/no-poster-available.jpg"
+        }
         id={item.id}
         key={item.id}
       />
