@@ -5,7 +5,7 @@ export default function Cards(props) {
         <img className="poster" src={props.posterPath} alt="" />
       </div>
       <div className="info">
-        <h2 className="title">{props.movieTitle}</h2>
+        <p className="title">{props.movieTitle}</p>
         <p className="type">{props.date}</p>
       </div>
     </div>

@@ -2,43 +2,61 @@ import "./index.css";
 import React from "react";
 import Header from "./Header";
 import Cards from "./Cards";
+// import Footer from "./Footer";
 
 function App() {
-  // const [moviesData, setMoviesData] = React.useState({});
-
+  // State for the movie info
   const [movieData, setMovieData] = React.useState([]);
 
+  // Managing the 'side effects' of fetching and saving the fetched info in the movieData state.
   React.useEffect(() => {
     fetch(
       "https://api.themoviedb.org/3/movie/now_playing?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US&page=1"
     )
       .then((res) => res.json())
       .then((data) => setMovieData(data.results));
-  }, [movieData.id]);
+  }, []);
 
+  // Getting the first half of poster link
   let poster = `https://www.themoviedb.org/t/p/w500/`;
 
-  const all = movieData.map((item) => {
+  // mapping over the array of objects containing movie info
+  const MovieCard = movieData.map((item) => {
     return (
       <Cards
         movieTitle={item.original_title}
-        date={item.release_date.slice(0, 4)}
-        posterPath={`${poster}${item.poster_path}`}
+        date={item.release_date ? item.release_date.slice(0, 4) : "Null"}
+        posterPath={item.poster_path ? `${poster}${item.poster_path}` : ""}
         id={item.id}
         key={item.id}
       />
     );
   });
 
+  const [movieSearch, setMovieSearch] = React.useState("");
+  const searchAPI = `https://api.themoviedb.org/3/search/multi?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US&query=${movieSearch}&page=1&include_adult=false`;
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    fetch(searchAPI)
+      .then((res) => res.json())
+      .then((data) => setMovieData(data.results));
+  };
+
+  const handleChange = (event) => {
+    setMovieSearch(event.target.value);
+  };
+
   return (
     <div className="App">
-      <Header />
-      <section>{all}</section>
-      {/* <Cards
-        movieTitle={movieData.original_title}
-        posterPath={poster}
-        date={date.slice(0, 4)}
-      /> */}
+      <Header
+        handleSubmit={handleSubmit}
+        handleChange={handleChange}
+        value={movieSearch}
+      />
+      <section>{MovieCard}</section>
+      {/* <Footer /> */}
     </div>
   );
 }
