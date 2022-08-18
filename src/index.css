@@ -49,15 +49,20 @@ li {
   padding: 0px 20px;
 }
 
-li a {
+li p {
   text-decoration: none;
   color: #a6adac;
+  cursor: pointer;
 }
 
 li a:hover {
   text-decoration: none;
   color: #e7f6f2;
   transition: ease-in-out 0.3s;
+}
+
+form {
+  float: left;
 }
 
 input {
@@ -73,6 +78,11 @@ input {
   border: 1px solid #a6adac;
   border-radius: 50px;
   color: #a6adac;
+}
+
+input:focus {
+  outline: 0;
+  background: none;
 }
 
 /* Cards Section */

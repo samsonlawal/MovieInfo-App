@@ -27,7 +27,7 @@ function App() {
         movieTitle={
           item.original_title ? item.original_title : item.original_name
         }
-        date={item.release_date || item.first_air_date || "No date"}
+        date={item.release_date || item.first_air_date || "Null"}
         posterPath={
           item.poster_path
             ? `${poster}${item.poster_path}`
@@ -39,9 +39,13 @@ function App() {
     );
   });
 
+  // State for the input value
   const [movieSearch, setMovieSearch] = React.useState("");
+
+  // API url for the search
   const searchAPI = `https://api.themoviedb.org/3/search/multi?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US&query=${movieSearch}&page=1&include_adult=false`;
 
+  // Fetching results on submit
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -50,8 +54,22 @@ function App() {
       .then((data) => setMovieData(data.results));
   };
 
+  // Saving the search input in state
   const handleChange = (event) => {
     setMovieSearch(event.target.value);
+  };
+
+  // TRENDING
+
+  const trendingAPI =
+    "https://api.themoviedb.org/3/trending/all/week?api_key=812b448acde6be144d26b93a3e68cb8d";
+
+  const handleClick = (event) => {
+    event.preventDefault();
+
+    fetch(trendingAPI)
+      .then((res) => res.json())
+      .then((data) => setMovieData(data.results));
   };
 
   return (
@@ -60,6 +78,7 @@ function App() {
         handleSubmit={handleSubmit}
         handleChange={handleChange}
         value={movieSearch}
+        handleClick={handleClick}
       />
       <section>{MovieCard}</section>
       {/* <Footer /> */}

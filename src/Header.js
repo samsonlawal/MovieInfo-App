@@ -5,16 +5,27 @@ export default function Header(props) {
         <label>
           Movie<i className="fas fa-film"></i>Info
         </label>
-        <form className="nav-div" onSubmit={props.handleSubmit}>
-          <input
-            id="input"
-            onKeyPress={props.handleKeyPress}
-            type="text"
-            placeholder="Quick Search"
-            value={props.value}
-            onChange={props.handleChange}
-          />
-        </form>
+        <div className="nav-div">
+          <form onSubmit={props.handleSubmit}>
+            <input
+              id="input"
+              onKeyPress={props.handleKeyPress}
+              type="text"
+              placeholder="Quick Search"
+              value={props.value}
+              onChange={props.handleChange}
+            />
+          </form>
+
+          <ul>
+            <li>
+              <p onClick={props.handleClick}>Trending</p>
+            </li>
+            {/* <li>
+              <p onClick={props.HandleClick}>Watchlist</p>
+            </li> */}
+          </ul>
+        </div>
       </nav>
     </header>
   );
