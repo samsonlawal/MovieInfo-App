@@ -24,9 +24,7 @@ function App() {
   const MovieCard = movieData.map((item) => {
     return (
       <Cards
-        movieTitle={
-          item.original_title ? item.original_title : item.original_name
-        }
+        movieTitle={item.title || item.original_name || item.original_title}
         date={item.release_date || item.first_air_date || "Null"}
         posterPath={
           item.poster_path
