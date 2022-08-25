@@ -33,6 +33,7 @@ function App() {
         }
         id={item.id}
         key={item.id}
+        overview={item.overview}
       />
     );
   });
@@ -69,6 +70,10 @@ function App() {
       .then((res) => res.json())
       .then((data) => setMovieData(data.results));
   };
+
+  // Details
+
+  // const =
 
   return (
     <div className="App">
