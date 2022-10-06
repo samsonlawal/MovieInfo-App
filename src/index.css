@@ -24,6 +24,11 @@ label {
   font-size: 30px;
   font-weight: bold;
   letter-spacing: 1px;
+  cursor: pointer;
+}
+
+label span {
+  color: #df7861;
 }
 
 .nav-div {
@@ -37,7 +42,7 @@ i {
 }
 
 ul {
-  float: right;
+  float: left;
   list-style: none;
   padding: 0px 50px 0px 0px;
   margin: 0px 0px 0px 50px;
@@ -55,14 +60,18 @@ li p {
   cursor: pointer;
 }
 
-li a:hover {
+li p:active {
+  color: aquamarine;
+}
+
+li p:hover {
   text-decoration: none;
   color: #e7f6f2;
   transition: ease-in-out 0.3s;
 }
 
 form {
-  float: left;
+  float: right;
 }
 
 input {
@@ -197,4 +206,25 @@ button {
 .info {
   width: 100%;
   margin: 0px;
+}
+
+/* .popup{
+  width: 90%;
+  background: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+} */
+
+.footer-div {
+  text-align: center;
+}
+
+.footer-div button {
+  margin: 0px 20px 50px 20px;
+}
+
+.footer-div button:hover {
+  background: #be6855;
 }

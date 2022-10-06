@@ -2,16 +2,25 @@ import "./index.css";
 import React from "react";
 import Header from "./Header";
 import Cards from "./Cards";
-// import Footer from "./Footer";
+// import Popup from "./Popup";
+import Footer from "./Footer";
 
 function App() {
+  //Page Number
+  const [count, setCount] = React.useState(1);
+  function add() {
+    setCount((prevCount) => (prevCount += 1));
+    console.log(tvAPI);
+  }
+
   // State for the movie info
   const [movieData, setMovieData] = React.useState([]);
 
   // Managing the 'side effects' of fetching and saving the fetched info in the movieData state.
   React.useEffect(() => {
     fetch(
-      "https://api.themoviedb.org/3/movie/now_playing?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US&page=1"
+      trendingAPI
+      // "https://api.themoviedb.org/3/movie/now_playing?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US&page=1"
     )
       .then((res) => res.json())
       .then((data) => setMovieData(data.results));
@@ -59,11 +68,10 @@ function App() {
   };
 
   // TRENDING
-
   const trendingAPI =
     "https://api.themoviedb.org/3/trending/all/week?api_key=812b448acde6be144d26b93a3e68cb8d";
 
-  const handleClick = (event) => {
+  const trending = (event) => {
     event.preventDefault();
 
     fetch(trendingAPI)
@@ -71,9 +79,36 @@ function App() {
       .then((data) => setMovieData(data.results));
   };
 
-  // Details
+  //MOVIE
+  const movieAPI =
+    "https://api.themoviedb.org/3/movie/popular?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US&page=1";
+  const movie = (event) => {
+    event.preventDefault();
 
-  // const =
+    fetch(movieAPI)
+      .then((res) => res.json())
+      .then((data) => setMovieData(data.results));
+  };
+
+  const upcomingMovieAPI =
+    "https://api.themoviedb.org/3/movie/upcoming?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US&page=1";
+  const upcomingMovie = (event) => {
+    event.preventDefault();
+
+    fetch(upcomingMovieAPI)
+      .then((res) => res.json())
+      .then((data) => setMovieData(data.results));
+  };
+
+  // TV SHOWS
+  const tvAPI = `https://api.themoviedb.org/3/tv/popular?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US&page=${count}`;
+  const tv = (event) => {
+    event.preventDefault();
+
+    fetch(tvAPI)
+      .then((res) => res.json())
+      .then((data) => setMovieData(data.results));
+  };
 
   return (
     <div className="App">
@@ -81,10 +116,13 @@ function App() {
         handleSubmit={handleSubmit}
         handleChange={handleChange}
         value={movieSearch}
-        handleClick={handleClick}
+        trending={trending}
+        movie={movie}
+        upcomingMovie={upcomingMovie}
+        tv={tv}
       />
       <section>{MovieCard}</section>
-      {/* <Footer /> */}
+      <Footer add={add} />
     </div>
   );
 }

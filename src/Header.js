@@ -2,8 +2,9 @@ export default function Header(props) {
   return (
     <header className="App-header">
       <nav>
-        <label>
-          Movie<i className="fas fa-film"></i>Info
+        {/* <i className="fas fa-film"></i> */}
+        <label onClick={props.trending}>
+          Movie<span>Info</span>
         </label>
         <div className="nav-div">
           <form onSubmit={props.handleSubmit}>
@@ -18,12 +19,21 @@ export default function Header(props) {
           </form>
 
           <ul>
-            <li>
-              <p onClick={props.handleClick}>Trending</p>
-            </li>
             {/* <li>
-              <p onClick={props.HandleClick}>Watchlist</p>
+              <p onClick={props.trending}>Trending</p>
             </li> */}
+            <li>
+              <p onClick={props.trending}>Home</p>
+            </li>
+            <li>
+              <p onClick={props.movie}>Movies</p>
+            </li>
+            <li>
+              <p onClick={props.tv}>TV Shows</p>
+            </li>
+            <li>
+              <p onClick={props.handleClick}>Bookmarks</p>
+            </li>
           </ul>
         </div>
       </nav>
