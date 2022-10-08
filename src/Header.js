@@ -1,3 +1,5 @@
+import React from "react";
+
 export default function Header(props) {
   return (
     <header className="App-header">
@@ -16,12 +18,11 @@ export default function Header(props) {
               value={props.value}
               onChange={props.handleChange}
             />
+
+            <i className="fa-solid fa-sun"></i>
           </form>
 
           <ul>
-            {/* <li>
-              <p onClick={props.trending}>Trending</p>
-            </li> */}
             <li>
               <p onClick={props.trending}>Home</p>
             </li>

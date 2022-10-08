@@ -6,31 +6,54 @@ import Cards from "./Cards";
 import Footer from "./Footer";
 
 function App() {
-  //Page Number
-  const [count, setCount] = React.useState(1);
-  function add() {
-    setCount((prevCount) => (prevCount += 1));
-    console.log(tvAPI);
-  }
-
   // State for the movie info
-  const [movieData, setMovieData] = React.useState([]);
+  const [movieData, setMovieData] = React.useState({
+    movies: [],
+    totalPages: "",
+    currentPage: 1,
+    totalResults: 0,
+  });
+
+  // console.log(movieData.totalPages);
+
+  const nextPage = (pageNumber) => {
+    document.documentElement.scrollTop = 0;
+    // pageNumber = movieData.currentPage;
+    // console.log(pageNumber + 1);
+    fetch(
+      `https://api.themoviedb.org/3/trending/all/week?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US&page=${pageNumber}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setMovieData({
+          movies: data.results,
+          currentPage: pageNumber,
+          totalPages: data.total_pages,
+        });
+      });
+  };
 
   // Managing the 'side effects' of fetching and saving the fetched info in the movieData state.
   React.useEffect(() => {
-    fetch(
-      trendingAPI
-      // "https://api.themoviedb.org/3/movie/now_playing?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US&page=1"
-    )
+    fetch(trendingAPI)
       .then((res) => res.json())
-      .then((data) => setMovieData(data.results));
+      .then((data) => {
+        setMovieData({
+          movies: data.results,
+          totalPages: data.total_pages,
+          currentPage: data.page,
+          totalResults: data.total_results,
+        });
+      });
   }, []);
+
+  const numberOfPages = Math.floor(movieData.totalPages);
 
   // Getting the first half of poster link
   let poster = `https://www.themoviedb.org/t/p/w500/`;
 
   // mapping over the array of objects containing movie info
-  const MovieCard = movieData.map((item) => {
+  const MovieCard = movieData.movies.map((item) => {
     return (
       <Cards
         movieTitle={item.title || item.original_name || item.original_title}
@@ -48,89 +71,92 @@ function App() {
   });
 
   // State for the input value
-  const [movieSearch, setMovieSearch] = React.useState("");
+  // const [movieSearch, setMovieSearch] = React.useState("");
 
   // API url for the search
-  const searchAPI = `https://api.themoviedb.org/3/search/multi?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US&query=${movieSearch}&page=1&include_adult=false`;
+  // const searchAPI = `https://api.themoviedb.org/3/search/multi?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US&query=${movieSearch}&page=1&include_adult=false`;
 
   // Fetching results on submit
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
 
-    fetch(searchAPI)
-      .then((res) => res.json())
-      .then((data) => setMovieData(data.results));
-  };
+  //   fetch(searchAPI)
+  //     .then((res) => res.json())
+  //     .then((data) => setMovieData(data.results));
+  // };
 
   // Saving the search input in state
-  const handleChange = (event) => {
-    setMovieSearch(event.target.value);
-  };
+  // const handleChange = (event) => {
+  //   setMovieSearch(event.target.value);
+  // };
 
   // TRENDING
-  const trendingAPI =
-    "https://api.themoviedb.org/3/trending/all/week?api_key=812b448acde6be144d26b93a3e68cb8d";
+  const trendingAPI = `https://api.themoviedb.org/3/trending/all/week?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US&page=1`;
 
-  const trending = (event) => {
-    event.preventDefault();
+  // const trending = (event) => {
+  //   event.preventDefault();
 
-    fetch(trendingAPI)
-      .then((res) => res.json())
-      .then((data) => setMovieData(data.results));
-  };
+  //   fetch(trendingAPI)
+  //     .then((res) => res.json())
+  //     .then((data) => setMovieData(data));
+  // };
 
   //MOVIE
-  const movieAPI =
-    "https://api.themoviedb.org/3/movie/popular?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US&page=1";
-  const movie = (event) => {
-    event.preventDefault();
+  // const popularMovieAPI =
+  //   "https://api.themoviedb.org/3/movie/popular?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US&page=1";
+  // const movie = (event) => {
+  //   event.preventDefault();
 
-    fetch(movieAPI)
-      .then((res) => res.json())
-      .then((data) => setMovieData(data.results));
-  };
+  //   fetch(popularMovieAPI)
+  //     .then((res) => res.json())
+  //     .then((data) => setMovieData(data.results));
+  // };
 
-  const upcomingMovieAPI =
-    "https://api.themoviedb.org/3/movie/upcoming?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US&page=1";
-  const upcomingMovie = (event) => {
-    event.preventDefault();
+  // const upcomingMovieAPI =
+  //   "https://api.themoviedb.org/3/movie/upcoming?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US&page=1";
+  // const upcomingMovie = (event) => {
+  //   event.preventDefault();
 
-    fetch(upcomingMovieAPI)
-      .then((res) => res.json())
-      .then((data) => setMovieData(data.results));
-  };
+  //   fetch(upcomingMovieAPI)
+  //     .then((res) => res.json())
+  //     .then((data) => setMovieData(data.results));
+  // };
 
   // TV SHOWS
-  const tvAPI = `https://api.themoviedb.org/3/tv/popular?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US&page=${count}`;
-  const tv = (event) => {
-    event.preventDefault();
+  // const tvAPI = `https://api.themoviedb.org/3/tv/popular?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US&page=1`;
+  // const tv = (event) => {
+  //   event.preventDefault();
 
-    fetch(tvAPI)
-      .then((res) => res.json())
-      .then((data) => setMovieData(data.results));
-  };
+  //   fetch(tvAPI)
+  //     .then((res) => res.json())
+  //     .then((data) => setMovieData(data.results));
+  // };
+
+  // const currentPage = 1;
+  // const nextPage = 2;
+  // const previouspage = 3;
+  // const lastUrl = "";
+  // const totalPages = "";
 
   return (
     <div className="App">
       <Header
-        handleSubmit={handleSubmit}
-        handleChange={handleChange}
-        value={movieSearch}
-        trending={trending}
-        movie={movie}
-        upcomingMovie={upcomingMovie}
-        tv={tv}
+      // handleSubmit={handleSubmit}
+      // handleChange={handleChange}
+      // value={movieSearch}
+      // trending={trending}
+      // movie={movie}
+      // upcomingMovie={upcomingMovie}
+      // tv={tv}
       />
       <section>{MovieCard}</section>
-      <Footer add={add} />
+      <Footer
+        numberOfPages={numberOfPages}
+        nextPage={nextPage}
+        currentPage={movieData.currentPage}
+      />
     </div>
   );
 }
 
 export default App;
-
-{
-  /* <article>
-        <h1>Get Quick Update on New Movies and TV Series Release</h1>
-      </article> */
-}

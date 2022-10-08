@@ -21,14 +21,14 @@ nav {
 label {
   line-height: 80px;
   color: #e7f6f2;
-  font-size: 30px;
+  font-size: 27px;
   font-weight: bold;
   letter-spacing: 1px;
   cursor: pointer;
 }
 
 label span {
-  color: #df7861;
+  color: #a5c9ca;
 }
 
 .nav-div {
@@ -38,7 +38,8 @@ label span {
 }
 
 i {
-  color: #df7861;
+  color: #a6adac;
+  font-size: 20px;
 }
 
 ul {
@@ -80,6 +81,7 @@ input {
   padding: 6px 20px;
   border: none;
   margin-top: 15px;
+  margin-right: 50px;
   font-size: 17px;
   font-weight: 500;
   line-height: 80px;
@@ -133,13 +135,13 @@ section {
   height: auto;
   background-color: #e7f6f2;
   margin-bottom: 0px;
-  border: 3px solid white;
+  border: 3px solid #a5c9ca;
   display: block;
   /* border-radius: 10px; */
 }
 
 .poster-div__overlay {
-  border: 3px solid white;
+  border: 3px solid #a5c9ca;
   position: absolute;
   left: 0;
   top: 0;
@@ -169,7 +171,7 @@ section {
   opacity: 1;
 }
 
-button {
+/* button {
   color: white;
   background: #df7861;
   padding: 10px 13px;
@@ -177,7 +179,7 @@ button {
   font-size: 18px;
   backdrop-filter: blur(5px);
   border-radius: 6px;
-}
+} */
 
 .title {
   color: #e7f6f2;
@@ -219,12 +221,35 @@ button {
 
 .footer-div {
   text-align: center;
+  /* background-color: #2429299d; */
+  /* border-top: 2px solid #395b64; */
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .footer-div button {
-  margin: 0px 20px 50px 20px;
+  margin: 0px 20px 0px 20px;
+  padding: 10px 13px;
+  background: none;
+  border: 2px solid #395b64;
+  color: #e7f6f2;
+  border-radius: 2px;
+  font-size: 15px;
+  backdrop-filter: blur(5px);
+}
+
+#currentPage {
+  background: #395b64;
 }
 
 .footer-div button:hover {
-  background: #be6855;
+  background: #2f4a52;
+}
+
+.copyright {
+  margin: 30px 0px 0px 0px;
+  color: #a6adac;
 }

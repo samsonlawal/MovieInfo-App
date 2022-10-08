@@ -1,3 +1,5 @@
+import React from "react";
+
 export default function Cards(props) {
   return (
     <div className="card">
@@ -8,7 +10,7 @@ export default function Cards(props) {
           alt={props.movieTitle}
         />
         <div className="poster-div__overlay">
-          <button>See Details</button>
+          {/* <button>See Details</button> */}
         </div>
       </div>
       <div className="info">
