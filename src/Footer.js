@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function Footer(props) {
-  const pagelink = [];
+  // const pagelink = [];
 
   for (let i = 1; i <= props.pages + 1; i++) {
     // let active = props.currentPage == i ? "active" : "";
@@ -43,7 +43,7 @@ export default function Footer(props) {
           Page {props.currentPage}
         </button>
 
-        {props.currentPage < props.numberOfPages + 1 ? (
+        {props.currentPage < props.numberOfPages ? (
           <button
             onClick={() => {
               props.nextPage(props.currentPage + 1);
@@ -54,9 +54,6 @@ export default function Footer(props) {
         ) : (
           ""
         )}
-
-        {/* {pagelink} */}
-        {/* {pagelink} */}
       </div>
       <p className="copyright">copyright © 2021.</p>
     </div>

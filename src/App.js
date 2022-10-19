@@ -4,34 +4,28 @@ import Header from "./Header";
 import Cards from "./Cards";
 // import Popup from "./Popup";
 import Footer from "./Footer";
+import { useRef } from "react";
+import MovieInfo from "./MovieInfo";
 
 function App() {
   // State for the movie info
   const [movieData, setMovieData] = React.useState({
+    API: "",
     movies: [],
     totalPages: "",
     currentPage: 1,
     totalResults: 0,
+    currentMovie: null,
   });
 
-  // console.log(movieData.totalPages);
+  const trendingAPI = `https://api.themoviedb.org/3/trending/all/week?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US`;
+  const popularMovieAPI =
+    "https://api.themoviedb.org/3/movie/popular?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US";
+  const tvAPI = `https://api.themoviedb.org/3/tv/popular?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US`;
 
-  const nextPage = (pageNumber) => {
-    document.documentElement.scrollTop = 0;
-    // pageNumber = movieData.currentPage;
-    // console.log(pageNumber + 1);
-    fetch(
-      `https://api.themoviedb.org/3/trending/all/week?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US&page=${pageNumber}`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setMovieData({
-          movies: data.results,
-          currentPage: pageNumber,
-          totalPages: data.total_pages,
-        });
-      });
-  };
+  var currentAPI = movieData.API;
+
+  const inputRef = useRef(null);
 
   // Managing the 'side effects' of fetching and saving the fetched info in the movieData state.
   React.useEffect(() => {
@@ -39,6 +33,7 @@ function App() {
       .then((res) => res.json())
       .then((data) => {
         setMovieData({
+          API: trendingAPI,
           movies: data.results,
           totalPages: data.total_pages,
           currentPage: data.page,
@@ -47,7 +42,7 @@ function App() {
       });
   }, []);
 
-  const numberOfPages = Math.floor(movieData.totalPages);
+  const numberOfPages = movieData.totalPages;
 
   // Getting the first half of poster link
   let poster = `https://www.themoviedb.org/t/p/w500/`;
@@ -56,7 +51,9 @@ function App() {
   const MovieCard = movieData.movies.map((item) => {
     return (
       <Cards
-        movieTitle={item.title || item.original_name || item.original_title}
+        movieTitle={
+          item.name || item.title || item.original_name || item.original_title
+        }
         date={item.release_date || item.first_air_date || "Null"}
         posterPath={
           item.poster_path
@@ -66,51 +63,72 @@ function App() {
         id={item.id}
         key={item.id}
         overview={item.overview}
+        movieclick={movieClick}
       />
     );
   });
 
   // State for the input value
-  // const [movieSearch, setMovieSearch] = React.useState("");
+  const [movieSearch, setMovieSearch] = React.useState("");
 
   // API url for the search
-  // const searchAPI = `https://api.themoviedb.org/3/search/multi?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US&query=${movieSearch}&page=1&include_adult=false`;
+  const searchAPI = `https://api.themoviedb.org/3/search/multi?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US&query=${movieSearch}&include_adult=false`;
 
   // Fetching results on submit
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
-  //   fetch(searchAPI)
-  //     .then((res) => res.json())
-  //     .then((data) => setMovieData(data.results));
-  // };
+    fetch(searchAPI)
+      .then((res) => res.json())
+      .then((data) =>
+        setMovieData({
+          API: searchAPI,
+          movies: data.results,
+          totalPages: data.total_pages,
+          currentPage: data.page,
+          totalResults: data.total_results,
+        })
+      );
+  };
 
   // Saving the search input in state
-  // const handleChange = (event) => {
-  //   setMovieSearch(event.target.value);
-  // };
+  const handleChange = (event) => {
+    setMovieSearch(event.target.value);
+  };
 
   // TRENDING
-  const trendingAPI = `https://api.themoviedb.org/3/trending/all/week?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US&page=1`;
+  const trending = (event) => {
+    event.preventDefault();
 
-  // const trending = (event) => {
-  //   event.preventDefault();
-
-  //   fetch(trendingAPI)
-  //     .then((res) => res.json())
-  //     .then((data) => setMovieData(data));
-  // };
+    fetch(trendingAPI)
+      .then((res) => res.json())
+      .then((data) =>
+        setMovieData({
+          API: trendingAPI,
+          movies: data.results,
+          totalPages: data.total_pages,
+          currentPage: data.page,
+          totalResults: data.total_results,
+        })
+      );
+  };
 
   //MOVIE
-  // const popularMovieAPI =
-  //   "https://api.themoviedb.org/3/movie/popular?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US&page=1";
-  // const movie = (event) => {
-  //   event.preventDefault();
+  const movie = (event) => {
+    event.preventDefault();
 
-  //   fetch(popularMovieAPI)
-  //     .then((res) => res.json())
-  //     .then((data) => setMovieData(data.results));
-  // };
+    fetch(popularMovieAPI)
+      .then((res) => res.json())
+      .then((data) =>
+        setMovieData({
+          API: popularMovieAPI,
+          movies: data.results,
+          totalPages: data.total_pages,
+          currentPage: data.page,
+          totalResults: data.total_results,
+        })
+      );
+  };
 
   // const upcomingMovieAPI =
   //   "https://api.themoviedb.org/3/movie/upcoming?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US&page=1";
@@ -123,38 +141,112 @@ function App() {
   // };
 
   // TV SHOWS
-  // const tvAPI = `https://api.themoviedb.org/3/tv/popular?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US&page=1`;
-  // const tv = (event) => {
-  //   event.preventDefault();
+  const tv = (event) => {
+    event.preventDefault();
 
-  //   fetch(tvAPI)
-  //     .then((res) => res.json())
-  //     .then((data) => setMovieData(data.results));
-  // };
+    currentAPI = tvAPI;
 
-  // const currentPage = 1;
-  // const nextPage = 2;
-  // const previouspage = 3;
-  // const lastUrl = "";
-  // const totalPages = "";
+    fetch(tvAPI)
+      .then((res) => res.json())
+      .then((data) =>
+        setMovieData({
+          API: tvAPI,
+          movies: data.results,
+          totalPages: data.total_pages,
+          currentPage: data.page,
+          totalResults: data.total_results,
+        })
+      );
+  };
+
+  let nextPage = (pageNumber) => {
+    document.documentElement.scrollTop = 0;
+
+    // console.log(`${currentAPI}&page=${pageNumber}`);
+
+    fetch(`${currentAPI}&page=${pageNumber}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setMovieData({
+          API: currentAPI,
+          movies: data.results,
+          currentPage: pageNumber,
+          totalPages: data.total_pages,
+        });
+      });
+  };
+
+  var home = document.getElementById("home");
+  var movieElem = document.getElementById("movie");
+  var tvElem = document.getElementById("tv");
+  var seacrhBar = document.getElementById("input");
+
+  if (currentAPI === trendingAPI) {
+    home.classList.add("active");
+    tvElem.classList.remove("active");
+    movieElem.classList.remove("active");
+  } else if (currentAPI === tvAPI) {
+    tvElem.classList.add("active");
+    home.classList.remove("active");
+    movieElem.classList.remove("active");
+  } else if (currentAPI === popularMovieAPI) {
+    movieElem.classList.add("active");
+    home.classList.remove("active");
+    tvElem.classList.remove("active");
+  } else if (currentAPI === searchAPI) {
+    movieElem.classList.remove("active");
+    home.classList.remove("active");
+    tvElem.classList.remove("active");
+    seacrhBar.classList.add("active-bar");
+  }
+
+  // MOVIE-INFO
+  function movieClick(id) {
+    const filtered = movieData.movies.filter((item) => item.id === id);
+    console.log(
+      filtered[0].title ||
+        filtered[0].original_title ||
+        filtered[0].original_name
+    );
+
+    const newCurrentMovie = filtered.length > 0 ? filtered[0] : null;
+
+    setMovieData({ ...movieData, currentMovie: filtered[0] });
+  }
+
+  function closeInfo() {
+    setMovieData({ ...movieData, currentMovie: null });
+  }
 
   return (
     <div className="App">
+      {/* <h1 className="topTitle">Trending</h1> */}
       <Header
-      // handleSubmit={handleSubmit}
-      // handleChange={handleChange}
-      // value={movieSearch}
-      // trending={trending}
-      // movie={movie}
-      // upcomingMovie={upcomingMovie}
-      // tv={tv}
+        handleSubmit={handleSubmit}
+        handleChange={handleChange}
+        value={movieSearch}
+        trending={trending}
+        movie={movie}
+        // upcomingMovie={upcomingMovie}
+        tv={tv}
+        inputRef={inputRef}
       />
-      <section>{MovieCard}</section>
-      <Footer
-        numberOfPages={numberOfPages}
-        nextPage={nextPage}
-        currentPage={movieData.currentPage}
-      />
+      {movieData.currentMovie == null ? (
+        <>
+          <section>{MovieCard}</section>
+          <Footer
+            numberOfPages={numberOfPages}
+            nextPage={nextPage}
+            currentPage={movieData.currentPage}
+          />
+        </>
+      ) : (
+        <MovieInfo
+          closeInfo={closeInfo}
+          movie={movieData.currentMovie}
+          poster={poster}
+        />
+      )}
     </div>
   );
 }

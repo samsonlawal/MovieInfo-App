@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Header(props) {
+export default function Navbar(props) {
   return (
     <header className="App-header">
       <nav>
@@ -17,20 +17,27 @@ export default function Header(props) {
               placeholder="Quick Search"
               value={props.value}
               onChange={props.handleChange}
+              ref={props.inputRef}
             />
 
-            <i className="fa-solid fa-sun"></i>
+            <i className="fa-solid fa-sun mode-icon"></i>
           </form>
 
           <ul>
             <li>
-              <p onClick={props.trending}>Home</p>
+              <p id="home" onClick={props.trending}>
+                Trending
+              </p>
             </li>
             <li>
-              <p onClick={props.movie}>Movies</p>
+              <p id="movie" onClick={props.movie}>
+                Movies
+              </p>
             </li>
             <li>
-              <p onClick={props.tv}>TV Shows</p>
+              <p id="tv" onClick={props.tv}>
+                TV Shows
+              </p>
             </li>
             <li>
               <p onClick={props.handleClick}>Bookmarks</p>

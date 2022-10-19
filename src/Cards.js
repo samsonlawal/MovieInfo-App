@@ -14,7 +14,10 @@ export default function Cards(props) {
         </div>
       </div>
       <div className="info">
-        <p className="title">{props.movieTitle}</p>
+        <p className="title" onClick={() => props.movieclick(props.id)}>
+          {props.movieTitle}
+        </p>
+        {/* <p>{props.id}</p> */}
         <p className="date">{props.date.substr(0, 4)}</p>
       </div>
     </div>

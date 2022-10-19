@@ -37,7 +37,7 @@ label span {
   line-height: 80px;
 }
 
-i {
+.mode-icon {
   color: #a6adac;
   font-size: 20px;
 }
@@ -94,6 +94,24 @@ input {
 input:focus {
   outline: 0;
   background: none;
+}
+
+/* .topTitle {
+  color: #395b64;
+  letter-spacing: 1px;
+} */
+
+.active {
+  color: #e7f6f2;
+}
+
+.active:hover {
+  color: #e7f6f2;
+}
+
+.active-bar {
+  border: 2px solid #e7f6f2;
+  color: #e7f6f2;
 }
 
 /* Cards Section */
@@ -243,6 +261,8 @@ section {
 
 #currentPage {
   background: #395b64;
+  /* border-radius: 150px;
+  padding: 10px 13px; */
 }
 
 .footer-div button:hover {
