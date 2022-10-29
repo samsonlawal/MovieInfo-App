@@ -52,5 +52,4 @@ _Below is an example of how you can install and set up your app._
 - To see changes:
   - Browser - open http://localhost:3000/
 
-_For more examples, please refer to the [Documentation](https://example.com)_
 
