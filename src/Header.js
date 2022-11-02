@@ -2,16 +2,17 @@ import React from "react";
 
 export default function Navbar(props) {
   return (
-    <header className="App-header">
-      <nav>
+    <header className="App-header" id="header">
+      <nav id="nav">
         {/* <i className="fas fa-film"></i> */}
         <label onClick={props.trending}>
-          Movie<span>Info</span>
+          Movie<span className="span">Info</span>
         </label>
         <div className="nav-div">
           <form onSubmit={props.handleSubmit}>
             <input
               id="input"
+              autoComplete="on"
               onKeyPress={props.handleKeyPress}
               type="text"
               placeholder="Quick Search"
@@ -19,28 +20,30 @@ export default function Navbar(props) {
               onChange={props.handleChange}
               ref={props.inputRef}
             />
-
-            <i className="fa-solid fa-sun mode-icon"></i>
+            {/* <i className="fa-solid fa-sun mode-icon"></i> */}
+            <i class="fa-solid fa-moon mode-icon" onClick={props.lightMode}></i>
           </form>
 
           <ul>
             <li>
-              <p id="home" onClick={props.trending}>
+              <p class="nav-link" id="home" onClick={props.trending}>
                 Trending
               </p>
             </li>
             <li>
-              <p id="movie" onClick={props.movie}>
+              <p class="nav-link" id="movie" onClick={props.movie}>
                 Movies
               </p>
             </li>
             <li>
-              <p id="tv" onClick={props.tv}>
+              <p class="nav-link" id="tv" onClick={props.tv}>
                 TV Shows
               </p>
             </li>
             <li>
-              <p onClick={props.handleClick}>Bookmarks</p>
+              <p class="nav-link" onClick={props.handleClick}>
+                Bookmarks
+              </p>
             </li>
           </ul>
         </div>

@@ -16,12 +16,15 @@ function App() {
     currentPage: 1,
     totalResults: 0,
     currentMovie: null,
+    videos: "",
+    casts: "",
   });
 
   const trendingAPI = `https://api.themoviedb.org/3/trending/all/week?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US`;
   const popularMovieAPI =
     "https://api.themoviedb.org/3/movie/popular?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US";
   const tvAPI = `https://api.themoviedb.org/3/tv/popular?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US`;
+  let individualAPI;
 
   var currentAPI = movieData.API;
 
@@ -201,21 +204,97 @@ function App() {
   }
 
   // MOVIE-INFO
+
+  // const [info, setInfo] = React.useState("");
+  // const getinfo = (event) => {
+  //   event.preventDefault();
+  //   fetch(individualAPI)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setMovieData({
+  //         ...movieData,
+  //         currentMovie: data,
+  //       });
+  //     });
+  // };
   function movieClick(id) {
     const filtered = movieData.movies.filter((item) => item.id === id);
-    console.log(
-      filtered[0].title ||
-        filtered[0].original_title ||
-        filtered[0].original_name
-    );
+    let currentID = filtered[0].id;
+    let mediaType;
+    if (currentAPI === tvAPI) {
+      mediaType = "tv";
+    } else if (currentAPI === popularMovieAPI) {
+      mediaType = "movie";
+    } else {
+      mediaType = filtered[0].media_type;
+    }
+
+    individualAPI = `https://api.themoviedb.org/3/${mediaType}/${currentID}?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US&append_to_response=videos,credits`;
 
     const newCurrentMovie = filtered.length > 0 ? filtered[0] : null;
 
-    setMovieData({ ...movieData, currentMovie: filtered[0] });
+    fetch(individualAPI)
+      .then((res) => res.json())
+      .then((data) => {
+        setMovieData({
+          ...movieData,
+          currentMovie: data,
+          videos: data.videos.results,
+          casts: data.credits.cast,
+        });
+      });
+
+    let header = document.getElementById("header");
+    header.style.display = "none";
+
+    console.log(movieData.currentMovie);
   }
 
+  // Back Button
   function closeInfo() {
     setMovieData({ ...movieData, currentMovie: null });
+    let header = document.getElementById("header");
+    header.style.display = "block";
+  }
+
+  function lightMode() {
+    var body = document.body;
+    body.classList.toggle("body-light-mode");
+
+    // if (document.body.style.backgroundColor == "#2c3333") {
+    var nav = document.getElementById("nav");
+    nav.classList.toggle("nav-light-mode");
+
+    let labelSpan = document.querySelector(".span");
+    labelSpan.classList.toggle("span-light-mode");
+
+    let link = document.querySelectorAll(".nav-link");
+    for (let i = 0; i < link.length; i++) {
+      link[i].classList.toggle("link-light-mode");
+    }
+
+    let input = document.querySelector("input");
+    input.classList.toggle("input-light-mode");
+
+    let modeIcon = document.querySelector(".mode-icon");
+    modeIcon.classList.toggle("mode-icon-light-mode");
+
+    var title = document.querySelectorAll(".title");
+    for (let i = 0; i < title.length; i++) {
+      title[i].classList.toggle("title-light-mode");
+    }
+
+    let footer = document.querySelector(".footer-div");
+    footer.classList.toggle("footer-div-light-mode");
+
+    let nextButton = document.querySelector(".nextPage");
+    nextButton.classList.toggle("nextPage-light-mode");
+
+    let prevButton = document.querySelector(".prevPage");
+    prevButton.classList.toggle("prevPage-light-mode");
+
+    let copyright = document.querySelector(".copyright");
+    copyright.classList.toggle("copyright-light-mode");
   }
 
   return (
@@ -230,6 +309,7 @@ function App() {
         // upcomingMovie={upcomingMovie}
         tv={tv}
         inputRef={inputRef}
+        lightMode={lightMode}
       />
       {movieData.currentMovie == null ? (
         <>
@@ -245,6 +325,8 @@ function App() {
           closeInfo={closeInfo}
           movie={movieData.currentMovie}
           poster={poster}
+          videos={movieData.videos}
+          casts={movieData.casts}
         />
       )}
     </div>

@@ -23,6 +23,7 @@ export default function Footer(props) {
       <div className="btns">
         {props.currentPage > 1 ? (
           <button
+            className="prevPage"
             onClick={() => {
               props.nextPage(props.currentPage - 1);
             }}
@@ -45,6 +46,7 @@ export default function Footer(props) {
 
         {props.currentPage < props.numberOfPages ? (
           <button
+            className="nextPage"
             onClick={() => {
               props.nextPage(props.currentPage + 1);
             }}
@@ -55,7 +57,13 @@ export default function Footer(props) {
           ""
         )}
       </div>
-      <p className="copyright">copyright © 2021.</p>
+      <p className="copyright">
+        copyright © 2021{" "}
+        <a href="https://www.twitter.com/samsonlawal_" target="blank_">
+          Samson
+        </a>
+        .
+      </p>
     </div>
   );
   /* <article>

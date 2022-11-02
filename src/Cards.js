@@ -3,7 +3,7 @@ import React from "react";
 export default function Cards(props) {
   return (
     <div className="card">
-      <div className="poster-div">
+      <div className="poster-div" onClick={() => props.movieclick(props.id)}>
         <img
           className="poster-div__img"
           src={props.posterPath}
