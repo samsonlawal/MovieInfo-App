@@ -1,6 +1,8 @@
 import React from "react";
 
 export default function Cards(props) {
+  let light = props.lightMode ? "light" : "";
+
   return (
     <div className="card">
       <div className="poster-div" onClick={() => props.movieclick(props.id)}>
@@ -14,7 +16,10 @@ export default function Cards(props) {
         </div>
       </div>
       <div className="info">
-        <p className="title" onClick={() => props.movieclick(props.id)}>
+        <p
+          className={`title ${light}`}
+          onClick={() => props.movieclick(props.id)}
+        >
           {props.movieTitle}
         </p>
         {/* <p>{props.id}</p> */}

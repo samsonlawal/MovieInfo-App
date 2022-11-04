@@ -20,6 +20,47 @@ function App() {
     casts: "",
   });
 
+  const [lightMode, setLightMode] = React.useState(false);
+  function toggleLightMode() {
+    setLightMode((prevMode) => !prevMode);
+
+    var home = document.getElementById("home");
+    var movieElem = document.getElementById("movie");
+    var tvElem = document.getElementById("tv");
+    var seacrhBar = document.getElementById("input");
+
+    if (
+      (currentAPI === trendingAPI && lightMode === true) ||
+      currentAPI === trendingAPI
+    ) {
+      home.classList.add("active");
+      tvElem.classList.remove("active");
+      movieElem.classList.remove("active");
+    } else if (
+      (currentAPI === tvAPI && lightMode === true) ||
+      currentAPI === tvAPI
+    ) {
+      tvElem.classList.add("active");
+      home.classList.remove("active");
+      movieElem.classList.remove("active");
+    } else if (
+      (currentAPI === popularMovieAPI && lightMode === true) ||
+      currentAPI === popularMovieAPI
+    ) {
+      movieElem.classList.add("active");
+      home.classList.remove("active");
+      tvElem.classList.remove("active");
+    } else if (
+      (currentAPI === searchAPI && lightMode === true) ||
+      currentAPI === searchAPI
+    ) {
+      movieElem.classList.remove("active");
+      home.classList.remove("active");
+      tvElem.classList.remove("active");
+      seacrhBar.classList.add("active-bar");
+    }
+  }
+
   const trendingAPI = `https://api.themoviedb.org/3/trending/all/week?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US`;
   const popularMovieAPI =
     "https://api.themoviedb.org/3/movie/popular?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US";
@@ -67,6 +108,7 @@ function App() {
         key={item.id}
         overview={item.overview}
         movieclick={movieClick}
+        lightMode={lightMode}
       />
     );
   });
@@ -184,19 +226,31 @@ function App() {
   var tvElem = document.getElementById("tv");
   var seacrhBar = document.getElementById("input");
 
-  if (currentAPI === trendingAPI) {
+  if (
+    (currentAPI === trendingAPI && lightMode === true) ||
+    currentAPI === trendingAPI
+  ) {
     home.classList.add("active");
     tvElem.classList.remove("active");
     movieElem.classList.remove("active");
-  } else if (currentAPI === tvAPI) {
+  } else if (
+    (currentAPI === tvAPI && lightMode === true) ||
+    currentAPI === tvAPI
+  ) {
     tvElem.classList.add("active");
     home.classList.remove("active");
     movieElem.classList.remove("active");
-  } else if (currentAPI === popularMovieAPI) {
+  } else if (
+    (currentAPI === popularMovieAPI && lightMode === true) ||
+    currentAPI === popularMovieAPI
+  ) {
     movieElem.classList.add("active");
     home.classList.remove("active");
     tvElem.classList.remove("active");
-  } else if (currentAPI === searchAPI) {
+  } else if (
+    (currentAPI === searchAPI && lightMode === true) ||
+    currentAPI === searchAPI
+  ) {
     movieElem.classList.remove("active");
     home.classList.remove("active");
     tvElem.classList.remove("active");
@@ -257,45 +311,45 @@ function App() {
     header.style.display = "block";
   }
 
-  function lightMode() {
-    var body = document.body;
-    body.classList.toggle("body-light-mode");
+  // function lightMode() {
+  //   var body = document.body;
+  //   body.classList.toggle("body-light-mode");
 
-    // if (document.body.style.backgroundColor == "#2c3333") {
-    var nav = document.getElementById("nav");
-    nav.classList.toggle("nav-light-mode");
+  //   // if (document.body.style.backgroundColor == "#2c3333") {
+  //   var nav = document.getElementById("nav");
+  //   nav.classList.toggle("nav-light-mode");
 
-    let labelSpan = document.querySelector(".span");
-    labelSpan.classList.toggle("span-light-mode");
+  //   let labelSpan = document.querySelector(".span");
+  //   labelSpan.classList.toggle("span-light-mode");
 
-    let link = document.querySelectorAll(".nav-link");
-    for (let i = 0; i < link.length; i++) {
-      link[i].classList.toggle("link-light-mode");
-    }
+  //   let link = document.querySelectorAll(".nav-link");
+  //   for (let i = 0; i < link.length; i++) {
+  //     link[i].classList.toggle("link-light-mode");
+  //   }
 
-    let input = document.querySelector("input");
-    input.classList.toggle("input-light-mode");
+  //   let input = document.querySelector("input");
+  //   input.classList.toggle("input-light-mode");
 
-    let modeIcon = document.querySelector(".mode-icon");
-    modeIcon.classList.toggle("mode-icon-light-mode");
+  //   let modeIcon = document.querySelector(".mode-icon");
+  //   modeIcon.classList.toggle("mode-icon-light-mode");
 
-    var title = document.querySelectorAll(".title");
-    for (let i = 0; i < title.length; i++) {
-      title[i].classList.toggle("title-light-mode");
-    }
+  //   var title = document.querySelectorAll(".title");
+  //   for (let i = 0; i < movieData.movies.length; i++) {
+  //     title[i].classList.toggle("title-light-mode");
+  //   }
 
-    let footer = document.querySelector(".footer-div");
-    footer.classList.toggle("footer-div-light-mode");
+  //   let footer = document.querySelector(".footer-div");
+  //   footer.classList.toggle("footer-div-light-mode");
 
-    let nextButton = document.querySelector(".nextPage");
-    nextButton.classList.toggle("nextPage-light-mode");
+  //   let nextButton = document.querySelector(".nextPage");
+  //   nextButton.classList.toggle("nextPage-light-mode");
 
-    let prevButton = document.querySelector(".prevPage");
-    prevButton.classList.toggle("prevPage-light-mode");
+  //   // let prevButton = document.querySelector(".prevPage");
+  //   // prevButton.classList.toggle("prevPage-light-mode");
 
-    let copyright = document.querySelector(".copyright");
-    copyright.classList.toggle("copyright-light-mode");
-  }
+  //   let copyright = document.querySelector(".copyright");
+  //   copyright.classList.toggle("copyright-light-mode");
+  // }
 
   return (
     <div className="App">
@@ -309,15 +363,18 @@ function App() {
         // upcomingMovie={upcomingMovie}
         tv={tv}
         inputRef={inputRef}
+        // lightMode={lightMode}
+        toggleLightMode={toggleLightMode}
         lightMode={lightMode}
       />
       {movieData.currentMovie == null ? (
         <>
-          <section>{MovieCard}</section>
+          <section className={lightMode ? "light" : ""}>{MovieCard}</section>
           <Footer
             numberOfPages={numberOfPages}
             nextPage={nextPage}
             currentPage={movieData.currentPage}
+            lightMode={lightMode}
           />
         </>
       ) : (
@@ -327,6 +384,7 @@ function App() {
           poster={poster}
           videos={movieData.videos}
           casts={movieData.casts}
+          lightMode={lightMode}
         />
       )}
     </div>

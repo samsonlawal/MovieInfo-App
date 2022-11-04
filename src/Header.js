@@ -1,12 +1,13 @@
 import React from "react";
-
+// className={`nav-div ${props.lightMode ? "light" : ""}`}
 export default function Navbar(props) {
+  let light = props.lightMode ? "light" : "";
   return (
     <header className="App-header" id="header">
-      <nav id="nav">
+      <nav id="nav" className={props.lightMode ? "light" : ""}>
         {/* <i className="fas fa-film"></i> */}
         <label onClick={props.trending}>
-          Movie<span className="span">Info</span>
+          Movie<span className={props.lightMode ? "light" : ""}>Info</span>
         </label>
         <div className="nav-div">
           <form onSubmit={props.handleSubmit}>
@@ -19,29 +20,33 @@ export default function Navbar(props) {
               value={props.value}
               onChange={props.handleChange}
               ref={props.inputRef}
+              className={props.lightMode ? "light" : ""}
             />
             {/* <i className="fa-solid fa-sun mode-icon"></i> */}
-            <i class="fa-solid fa-moon mode-icon" onClick={props.lightMode}></i>
+            <i
+              class={`fa-solid fa-moon mode-icon ${light}`}
+              onClick={props.toggleLightMode}
+            ></i>
           </form>
 
           <ul>
             <li>
-              <p class="nav-link" id="home" onClick={props.trending}>
+              <p class={`nav-link ${light}`} id="home" onClick={props.trending}>
                 Trending
               </p>
             </li>
             <li>
-              <p class="nav-link" id="movie" onClick={props.movie}>
+              <p class={`nav-link ${light}`} id="movie" onClick={props.movie}>
                 Movies
               </p>
             </li>
             <li>
-              <p class="nav-link" id="tv" onClick={props.tv}>
+              <p class={`nav-link ${light}`} id="tv" onClick={props.tv}>
                 TV Shows
               </p>
             </li>
             <li>
-              <p class="nav-link" onClick={props.handleClick}>
+              <p class={`nav-link ${light}`} onClick={props.handleClick}>
                 Bookmarks
               </p>
             </li>

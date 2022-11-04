@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function Footer(props) {
-  // const pagelink = [];
+  let light = props.lightMode ? "light" : "";
 
   for (let i = 1; i <= props.pages + 1; i++) {
     // let active = props.currentPage == i ? "active" : "";
@@ -19,7 +19,7 @@ export default function Footer(props) {
   }
 
   return (
-    <div className="footer-div">
+    <div className={`footer-div ${light}`}>
       <div className="btns">
         {props.currentPage > 1 ? (
           <button
@@ -37,7 +37,6 @@ export default function Footer(props) {
         <button
           id="currentPage"
           onClick={() => {
-            console.log(props.numberOfPages);
             // props.nextPage(props.currentPage - 1);
           }}
         >
