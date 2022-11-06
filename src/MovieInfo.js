@@ -3,9 +3,10 @@ import { useState } from "react";
 import Moadal from "./Modal";
 import Casts from "./Casts";
 import "./Overview.css";
-import avatar from "./avatar.webp";
 
 export default function MovieInfo(props) {
+  let light = props.lightMode ? "light" : "";
+
   const [loadMore, setLoadMore] = useState(8);
   let totalmapped = props.casts.length;
 
@@ -91,6 +92,7 @@ export default function MovieInfo(props) {
         backdrop="https://image.tmdb.org/t/p/original/"
         castName={item.name}
         character={item.character}
+        lightMode={props.lightMode}
       />
     );
   });
@@ -154,11 +156,15 @@ export default function MovieInfo(props) {
         </div>
       </div>
 
-      <div className="director-casts">
-        <h3 className="casts-title">Casts</h3>
+      <div className={`director-casts ${light}`}>
+        <h3 className={`casts-title ${light}`}>Casts</h3>
         <div className="casts">
           {castCard}{" "}
-          <button className="show-more" id="show-more" onClick={BtnMore}>
+          <button
+            className={`show-more ${light}`}
+            id="show-more"
+            onClick={BtnMore}
+          >
             Show More
           </button>
         </div>

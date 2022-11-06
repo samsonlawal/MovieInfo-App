@@ -24,7 +24,7 @@ export default function Navbar(props) {
             />
             {/* <i className="fa-solid fa-sun mode-icon"></i> */}
             <i
-              class={`fa-solid fa-moon mode-icon ${light}`}
+              className={`fa-solid fa-moon mode-icon ${light}`}
               onClick={props.toggleLightMode}
             ></i>
           </form>

@@ -186,6 +186,11 @@ a {
   width: 100%;
   height: fit-content;
   padding: 30px 50px;
+  background-color: #2c3333;
+}
+
+.director-casts.light {
+  background-color: #e7f6f2;
 }
 
 .casts {
@@ -204,6 +209,11 @@ a {
   font-size: 35px;
   padding: 30px 0px;
 }
+
+.casts-title.light {
+  color: #2c3333;
+}
+
 .cast {
   width: 25%;
   height: fit-content;
@@ -243,8 +253,18 @@ a {
   letter-spacing: 0.8;
 }
 
+.cast b p.light {
+  color: #2c3333;
+}
+
 .cast p {
   color: #a6adac;
+  margin: 0px;
+  display: block;
+}
+
+.cast p.light {
+  color: #828887;
   margin: 0px;
   display: block;
 }
@@ -265,4 +285,9 @@ a {
 
 .show-more:active {
   background-color: #809a9b;
+}
+
+.show-more.light {
+  background-color: #395b64;
+  color: #e7f6f2;
 }

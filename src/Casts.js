@@ -1,6 +1,8 @@
 import React from "react";
 
 export default function Casts(props) {
+  let light = props.lightMode ? "light" : "";
+
   return (
     <div className="cast">
       <div className="img-div">
@@ -17,9 +19,11 @@ export default function Casts(props) {
       </div>
       <div className="cast-name">
         <b>
-          <p>{props.castName}</p>
+          <p className={light}>{props.castName}</p>
         </b>
-        <p>{props.character.split("/ ")[1] || props.character}</p>
+        <p className={light}>
+          {props.character.split("/ ")[1] || props.character}
+        </p>
       </div>
     </div>
   );
