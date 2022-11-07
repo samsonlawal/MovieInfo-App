@@ -464,3 +464,11 @@ section.light {
     padding-top: 80px;
   }
 }
+
+@media (max-width: 650px) {
+  nav {
+    height: fit-content;
+    padding: 0px 40px;
+    background-color: #333a3a;
+  }
+}
