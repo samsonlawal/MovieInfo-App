@@ -263,46 +263,6 @@ function App() {
     header.style.display = "block";
   }
 
-  // function lightMode() {
-  //   var body = document.body;
-  //   body.classList.toggle("body-light-mode");
-
-  //   // if (document.body.style.backgroundColor == "#2c3333") {
-  //   var nav = document.getElementById("nav");
-  //   nav.classList.toggle("nav-light-mode");
-
-  //   let labelSpan = document.querySelector(".span");
-  //   labelSpan.classList.toggle("span-light-mode");
-
-  //   let link = document.querySelectorAll(".nav-link");
-  //   for (let i = 0; i < link.length; i++) {
-  //     link[i].classList.toggle("link-light-mode");
-  //   }
-
-  //   let input = document.querySelector("input");
-  //   input.classList.toggle("input-light-mode");
-
-  //   let modeIcon = document.querySelector(".mode-icon");
-  //   modeIcon.classList.toggle("mode-icon-light-mode");
-
-  //   var title = document.querySelectorAll(".title");
-  //   for (let i = 0; i < movieData.movies.length; i++) {
-  //     title[i].classList.toggle("title-light-mode");
-  //   }
-
-  //   let footer = document.querySelector(".footer-div");
-  //   footer.classList.toggle("footer-div-light-mode");
-
-  //   let nextButton = document.querySelector(".nextPage");
-  //   nextButton.classList.toggle("nextPage-light-mode");
-
-  //   // let prevButton = document.querySelector(".prevPage");
-  //   // prevButton.classList.toggle("prevPage-light-mode");
-
-  //   let copyright = document.querySelector(".copyright");
-  //   copyright.classList.toggle("copyright-light-mode");
-  // }
-
   return (
     <div className="App">
       {/* <h1 className="topTitle">Trending</h1> */}
@@ -318,6 +278,7 @@ function App() {
         // lightMode={lightMode}
         toggleLightMode={toggleLightMode}
         lightMode={lightMode}
+        // hamburger={hamburger}
       />
       {movieData.currentMovie == null ? (
         <>
