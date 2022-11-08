@@ -79,8 +79,8 @@ export default function MovieInfo(props) {
     iframe.src = iframe.src;
   }
 
-  console.log(trailer);
-  console.log(props.movie);
+  // console.log(trailer);
+  // console.log(props.movie);
 
   const castCard = props.casts.slice(0, loadMore).map((item) => {
     return (

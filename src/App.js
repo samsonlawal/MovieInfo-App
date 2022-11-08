@@ -253,7 +253,7 @@ function App() {
     let header = document.getElementById("header");
     header.style.display = "none";
 
-    console.log(movieData.currentMovie);
+    // console.log(movieData.currentMovie);
   }
 
   // Back Button
@@ -261,6 +261,13 @@ function App() {
     setMovieData({ ...movieData, currentMovie: null });
     let header = document.getElementById("header");
     header.style.display = "block";
+  }
+
+  // Bookmark
+  const [bookmark, setBookmark] = React.useState([]);
+
+  function bookmarkIcon() {
+    console.log(movieData.currentMovie.id);
   }
 
   return (
@@ -278,6 +285,7 @@ function App() {
         // lightMode={lightMode}
         toggleLightMode={toggleLightMode}
         lightMode={lightMode}
+        bookmarkIcon={bookmarkIcon}
         // hamburger={hamburger}
       />
       {movieData.currentMovie == null ? (
