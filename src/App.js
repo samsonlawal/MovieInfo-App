@@ -73,6 +73,7 @@ function App() {
         overview={item.overview}
         movieclick={movieClick}
         lightMode={lightMode}
+        // bookmarkIcon={bookmarkIcon}
       />
     );
   });
@@ -185,6 +186,7 @@ function App() {
       });
   };
 
+  // Link Active Indicator
   var home = document.getElementById("home");
   var movieElem = document.getElementById("movie");
   var tvElem = document.getElementById("tv");
@@ -252,8 +254,6 @@ function App() {
 
     let header = document.getElementById("header");
     header.style.display = "none";
-
-    // console.log(movieData.currentMovie);
   }
 
   // Back Button
@@ -267,7 +267,32 @@ function App() {
   const [bookmark, setBookmark] = React.useState([]);
 
   function bookmarkIcon() {
-    console.log(movieData.currentMovie.id);
+    // let text = "bookmarkedMovie";
+    // let bookmarkedMovie;
+
+    if (localStorage.getItem("bookmarkedMovie") === null) {
+      setBookmark(
+        localStorage.setItem(
+          "bookmarkedMovie",
+          JSON.stringify([movieData.currentMovie])
+        )
+      );
+    } else {
+      setBookmark(JSON.parse(localStorage.getItem("bookmarkedMovie")));
+      localStorage.setItem(
+        "bookmarkedMovie",
+        JSON.stringify([...bookmark, movieData.currentMovie])
+      );
+    }
+  }
+
+  function bookmarkFunc() {
+    setMovieData({
+      ...movieData,
+      movies: JSON.parse(localStorage.getItem("bookmarkedMovie"))
+        ? JSON.parse(localStorage.getItem("bookmarkedMovie"))
+        : "No Bookmark",
+    });
   }
 
   return (
@@ -282,11 +307,9 @@ function App() {
         // upcomingMovie={upcomingMovie}
         tv={tv}
         inputRef={inputRef}
-        // lightMode={lightMode}
         toggleLightMode={toggleLightMode}
         lightMode={lightMode}
-        bookmarkIcon={bookmarkIcon}
-        // hamburger={hamburger}
+        bookmarkFunc={bookmarkFunc}
       />
       {movieData.currentMovie == null ? (
         <>
@@ -306,6 +329,7 @@ function App() {
           videos={movieData.videos}
           casts={movieData.casts}
           lightMode={lightMode}
+          bookmarkIcon={bookmarkIcon}
         />
       )}
     </div>

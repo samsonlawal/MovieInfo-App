@@ -132,9 +132,12 @@ export default function MovieInfo(props) {
             <a href="#demo-modal">
               {/* {trailer} target="_blank" */}
               <button className="trailer">
-                Watch Trailer<i className="fa-solid fa-circle-play"></i>
+                Watch Trailer <i className="fa-solid fa-circle-play"></i>
               </button>
             </a>
+            <button className="bookmark" onClick={props.bookmarkIcon}>
+              Bookmark <i className="fa-solid fa-bookmark"></i>
+            </button>
           </div>
         </div>
       </div>
