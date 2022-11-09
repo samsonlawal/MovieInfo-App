@@ -191,24 +191,35 @@ function App() {
   var movieElem = document.getElementById("movie");
   var tvElem = document.getElementById("tv");
   var seacrhBar = document.getElementById("input");
+  var book = document.getElementById("bookmark");
 
   if (currentAPI === trendingAPI) {
     home.classList.add("active");
     tvElem.classList.remove("active");
     movieElem.classList.remove("active");
+    book.classList.remove("active");
   } else if (currentAPI === tvAPI) {
     tvElem.classList.add("active");
     home.classList.remove("active");
     movieElem.classList.remove("active");
+    book.classList.remove("active");
   } else if (currentAPI === popularMovieAPI) {
     movieElem.classList.add("active");
     home.classList.remove("active");
     tvElem.classList.remove("active");
+    book.classList.remove("active");
   } else if (currentAPI === searchAPI) {
     movieElem.classList.remove("active");
     home.classList.remove("active");
     tvElem.classList.remove("active");
     seacrhBar.classList.add("active-bar");
+    book.classList.remove("active");
+  } else if (currentAPI === "bookmark") {
+    book.classList.add("active");
+    movieElem.classList.remove("active");
+    home.classList.remove("active");
+    tvElem.classList.remove("active");
+    seacrhBar.classList.remove("active-bar");
   }
 
   // MOVIE-INFO
@@ -287,8 +298,10 @@ function App() {
   }
 
   function bookmarkFunc() {
+    currentAPI = "bookmark";
     setMovieData({
       ...movieData,
+      API: currentAPI,
       movies: JSON.parse(localStorage.getItem("bookmarkedMovie"))
         ? JSON.parse(localStorage.getItem("bookmarkedMovie"))
         : "No Bookmark",

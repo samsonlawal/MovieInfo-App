@@ -61,7 +61,11 @@ export default function Navbar(props) {
               </p>
             </li>
             <li>
-              <p className={`nav-link ${light}`} onClick={props.bookmarkFunc}>
+              <p
+                id="bookmark"
+                className={`nav-link ${light}`}
+                onClick={props.bookmarkFunc}
+              >
                 Bookmarks
               </p>
             </li>
