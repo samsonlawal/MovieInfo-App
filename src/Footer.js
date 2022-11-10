@@ -20,42 +20,46 @@ export default function Footer(props) {
 
   return (
     <div className={`footer-div ${light}`}>
-      <div className="btns">
-        {props.currentPage > 1 ? (
+      {props.API === "bookmark" ? (
+        ""
+      ) : (
+        <div className="btns">
+          {props.currentPage > 1 ? (
+            <button
+              className="prevPage"
+              onClick={() => {
+                props.nextPage(props.currentPage - 1);
+              }}
+            >
+              Prev
+            </button>
+          ) : (
+            ""
+          )}
+
           <button
-            className="prevPage"
+            id="currentPage"
             onClick={() => {
-              props.nextPage(props.currentPage - 1);
+              // props.nextPage(props.currentPage - 1);
             }}
           >
-            Prev
+            Page {props.currentPage}
           </button>
-        ) : (
-          ""
-        )}
 
-        <button
-          id="currentPage"
-          onClick={() => {
-            // props.nextPage(props.currentPage - 1);
-          }}
-        >
-          Page {props.currentPage}
-        </button>
-
-        {props.currentPage < props.numberOfPages ? (
-          <button
-            className="nextPage"
-            onClick={() => {
-              props.nextPage(props.currentPage + 1);
-            }}
-          >
-            Next
-          </button>
-        ) : (
-          ""
-        )}
-      </div>
+          {props.currentPage < props.numberOfPages ? (
+            <button
+              className="nextPage"
+              onClick={() => {
+                props.nextPage(props.currentPage + 1);
+              }}
+            >
+              Next
+            </button>
+          ) : (
+            ""
+          )}
+        </div>
+      )}
       <p className="copyright">
         copyright © 2021{" "}
         <a href="https://www.twitter.com/samsonlawal_" target="blank_">

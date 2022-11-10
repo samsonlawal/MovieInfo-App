@@ -135,7 +135,11 @@ export default function MovieInfo(props) {
                 Watch Trailer <i className="fa-solid fa-circle-play"></i>
               </button>
             </a>
-            <button className="bookmark" onClick={props.bookmarkIcon}>
+            <button
+              id="bookmark"
+              className="bookmark"
+              onClick={props.bookmarkIcon}
+            >
               Bookmark <i className="fa-solid fa-bookmark"></i>
             </button>
           </div>

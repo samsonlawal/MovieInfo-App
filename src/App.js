@@ -6,6 +6,7 @@ import Cards from "./Cards";
 import Footer from "./Footer";
 import { useRef } from "react";
 import MovieInfo from "./MovieInfo";
+import NoBookmarkPage from "./NoBookmarkPage";
 
 function App() {
   // State for the movie info
@@ -56,27 +57,31 @@ function App() {
   let poster = `https://www.themoviedb.org/t/p/w500/`;
 
   // mapping over the array of objects containing movie info
-  const MovieCard = movieData.movies.map((item) => {
-    return (
-      <Cards
-        movieTitle={
-          item.name || item.title || item.original_name || item.original_title
-        }
-        date={item.release_date || item.first_air_date || "Null"}
-        posterPath={
-          item.poster_path
-            ? `${poster}${item.poster_path}`
-            : "https://www.prokerala.com/movies/assets/img/no-poster-available.jpg"
-        }
-        id={item.id}
-        key={item.id}
-        overview={item.overview}
-        movieclick={movieClick}
-        lightMode={lightMode}
-        // bookmarkIcon={bookmarkIcon}
-      />
-    );
-  });
+  const MovieCard = movieData.movies.length ? (
+    movieData.movies.map((item) => {
+      return (
+        <Cards
+          movieTitle={
+            item.name || item.title || item.original_name || item.original_title
+          }
+          date={item.release_date || item.first_air_date || "Null"}
+          posterPath={
+            item.poster_path
+              ? `${poster}${item.poster_path}`
+              : "https://www.prokerala.com/movies/assets/img/no-poster-available.jpg"
+          }
+          id={item.id}
+          key={item.id}
+          overview={item.overview}
+          movieclick={movieClick}
+          lightMode={lightMode}
+          // bookmarkIcon={bookmarkIcon}
+        />
+      );
+    })
+  ) : (
+    <NoBookmarkPage />
+  );
 
   // State for the input value
   const [movieSearch, setMovieSearch] = React.useState("");
@@ -278,9 +283,6 @@ function App() {
   const [bookmark, setBookmark] = React.useState([]);
 
   function bookmarkIcon() {
-    // let text = "bookmarkedMovie";
-    // let bookmarkedMovie;
-
     if (localStorage.getItem("bookmarkedMovie") === null) {
       setBookmark(
         localStorage.setItem(
@@ -294,6 +296,8 @@ function App() {
         "bookmarkedMovie",
         JSON.stringify([...bookmark, movieData.currentMovie])
       );
+
+      let bookmarkBtn = document.getElementById("bookmark").innerText;
     }
   }
 
@@ -304,7 +308,7 @@ function App() {
       API: currentAPI,
       movies: JSON.parse(localStorage.getItem("bookmarkedMovie"))
         ? JSON.parse(localStorage.getItem("bookmarkedMovie"))
-        : "No Bookmark",
+        : "",
     });
   }
 
@@ -332,6 +336,8 @@ function App() {
             nextPage={nextPage}
             currentPage={movieData.currentPage}
             lightMode={lightMode}
+            movieData={movieData}
+            API={movieData.API}
           />
         </>
       ) : (
