@@ -280,25 +280,36 @@ function App() {
   }
 
   // Bookmark
-  const [bookmark, setBookmark] = React.useState([]);
+  const [bookmark, setBookmark] = React.useState(
+    JSON.parse(localStorage.getItem("bookmarkedMovie"))
+  );
 
   function bookmarkIcon() {
     if (localStorage.getItem("bookmarkedMovie") === null) {
-      setBookmark(
-        localStorage.setItem(
-          "bookmarkedMovie",
-          JSON.stringify([movieData.currentMovie])
-        )
+      localStorage.setItem(
+        "bookmarkedMovie",
+        JSON.stringify([movieData.currentMovie])
       );
-    } else {
       setBookmark(JSON.parse(localStorage.getItem("bookmarkedMovie")));
+    } else {
       localStorage.setItem(
         "bookmarkedMovie",
         JSON.stringify([...bookmark, movieData.currentMovie])
       );
+      setBookmark(JSON.parse(localStorage.getItem("bookmarkedMovie")));
 
-      let bookmarkBtn = document.getElementById("bookmark").innerText;
+      //   let bookmarkBtn = document.getElementById("bookmark").innerText;
     }
+    // else if (
+    //   JSON.parse(localStorage.getItem("bookmarkedMovie")).indexOf(
+    //     movieData.currentMovie
+    //   ) == -1
+    // ) {
+    //   // setBookmark(JSON.parse(localStorage.getItem("bookmarkedMovie")));
+    //   localStorage.setItem("bookmarkedMovie", JSON.stringify([...bookmark]));
+    // }
+
+    console.log(bookmark);
   }
 
   function bookmarkFunc() {

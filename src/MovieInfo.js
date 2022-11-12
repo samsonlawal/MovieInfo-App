@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react";
-import Moadal from "./Modal";
 import Casts from "./Casts";
 import "./Overview.css";
 
@@ -53,14 +52,14 @@ export default function MovieInfo(props) {
   results = props.videos;
   for (let i = 0; i < results.length; i++) {
     let type = results[i].type;
-    let name = results[i].name;
+    // let name = results[i].name;
     let official = results[i].official;
 
     if (
       // results[i].name == "Official Trailer" ||
       // results[i].name == "Season 1 Official Trailer"
-      type == "Trailer" &&
-      official == true
+      type === "Trailer" &&
+      official === true
     ) {
       results = results[i].key;
       // .replace(/[^a-zA-Z ]/g, "")
@@ -140,6 +139,7 @@ export default function MovieInfo(props) {
               className="bookmark"
               onClick={props.bookmarkIcon}
             >
+              {/* {JSON.parse(localStorage.getItem(bookmarked)) ? "" : "Bookmark"}{" "} */}
               Bookmark <i className="fa-solid fa-bookmark"></i>
             </button>
           </div>
