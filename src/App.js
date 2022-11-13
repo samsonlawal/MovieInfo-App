@@ -268,6 +268,8 @@ function App() {
         });
       });
 
+    console.log(movieData.currentMovie);
+
     let header = document.getElementById("header");
     header.style.display = "none";
   }
