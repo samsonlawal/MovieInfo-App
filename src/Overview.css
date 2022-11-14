@@ -116,11 +116,11 @@ button {
 }
 
 button.bookmark {
-  padding: 0px 0px;
+  padding: 0px 20px;
   text-transform: uppercase;
   font-weight: bold;
   font-size: 15px;
-  width: 180px;
+  width: fit-content;
   height: 50px;
   display: flex;
   flex-direction: row;

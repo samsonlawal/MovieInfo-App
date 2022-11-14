@@ -96,9 +96,13 @@ export default function MovieInfo(props) {
     );
   });
 
-  // function showMore() {
-  //   props.sliced = totalmapped;
-  // }
+  let bookmarkText = document.getElementById("bookmark").innerText;
+  let bookmarkChecker = props.bookmark.some((el) => el.id === props.movie.id);
+
+  bookmarkChecker
+    ? (bookmarkText = `Remove Bookmark <i className="fa-solid fa-bookmark"></i>`)
+    : (bookmarkText = 'Bookmark <i className="fa-solid fa-bookmark"></i>');
+  console.log(bookmarkChecker);
 
   return (
     <div className="container">
@@ -139,8 +143,8 @@ export default function MovieInfo(props) {
               className="bookmark"
               onClick={props.bookmarkIcon}
             >
-              {/* {JSON.parse(localStorage.getItem(bookmarked)) ? "" : "Bookmark"}{" "} */}
-              Bookmark <i className="fa-solid fa-bookmark"></i>
+              {bookmarkChecker ? `Remove Bookmark` : `Bookmark`}{" "}
+              <i className="fa-solid fa-bookmark"></i>
             </button>
           </div>
         </div>

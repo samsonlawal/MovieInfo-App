@@ -350,6 +350,7 @@ function App() {
           casts={movieData.casts}
           lightMode={lightMode}
           bookmarkIcon={bookmarkIcon}
+          bookmark={bookmark}
         />
       )}
     </div>
