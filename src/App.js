@@ -245,15 +245,19 @@ function App() {
     const filtered = movieData.movies.filter((item) => item.id === id);
     let currentID = filtered[0].id;
     let mediaType;
-    if (currentAPI === tvAPI) {
+    /*if (currentAPI === tvAPI) {
       mediaType = "tv";
     } else if (currentAPI === popularMovieAPI) {
       mediaType = "movie";
+    } */ if (filtered[0].first_air_date) {
+      mediaType = "tv";
     } else {
+      mediaType = "movie";
+    } /* else {
       mediaType = filtered[0].media_type;
-    }
+    } */
 
-    individualAPI = `https://api.themoviedb.org/3/${mediaType}/${currentID}?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US&append_to_response=videos,credits`;
+    individualAPI = `https://api.themoviedb.org/3/${mediaType}/${currentID}?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US&append_to_response=videos,credits,media_type,`;
 
     const newCurrentMovie = filtered.length > 0 ? filtered[0] : null;
 
@@ -272,6 +276,9 @@ function App() {
 
     let header = document.getElementById("header");
     header.style.display = "none";
+
+    console.log(movieData.movies);
+    console.log(filtered[0].media_type);
   }
 
   // Back Button
