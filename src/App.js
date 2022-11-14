@@ -299,6 +299,17 @@ function App() {
         JSON.stringify([...bookmark, movieData.currentMovie])
       );
       setBookmark(JSON.parse(localStorage.getItem("bookmarkedMovie")));
+    } else if (bookmark.some((el) => el.id === movieData.currentMovie.id)) {
+      localStorage.setItem(
+        "bookmarkedMovie",
+        JSON.stringify(
+          bookmark.filter(function (obj) {
+            return obj.id !== movieData.currentMovie.id;
+          })
+        )
+      );
+
+      setBookmark(JSON.parse(localStorage.getItem("bookmarkedMovie")));
     }
   }
 
