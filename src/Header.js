@@ -6,13 +6,12 @@ export default function Navbar(props) {
   return (
     <header className="App-header" id="header">
       <nav id="nav" className={props.lightMode ? "light" : ""}>
-        {/* <i className="fas fa-film"></i> */}
         <label className="logo" onClick={props.trending}>
-          Movie<span className={props.lightMode ? "light" : ""}>Info</span>
+          Movie<span className={props.lightMode ? "light" : ""}>Release</span>
         </label>
 
         <input type="checkbox" id="check" />
-        <label for="check" className={`checkbtn ${light}`}>
+        <label htmlFor="check" className={`checkbtn ${light}`}>
           <i className="fa-solid fa-bars" onClick={props.hamburger}></i>
         </label>
 

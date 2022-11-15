@@ -105,7 +105,6 @@ export default function MovieInfo(props) {
   bookmarkChecker
     ? (bookmarkText = `Remove Bookmark <i className="fa-solid fa-bookmark"></i>`)
     : (bookmarkText = 'Bookmark <i className="fa-solid fa-bookmark"></i>');
-  console.log(bookmarkChecker);
 
   return (
     <div className="container">

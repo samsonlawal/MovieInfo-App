@@ -273,11 +273,6 @@ function App() {
           casts: data.credits.cast,
         });
       });
-
-    console.log(movieData.currentMovie);
-
-    console.log(movieData.movies);
-    console.log(filtered[0].media_type);
   }
 
   // Back Button
