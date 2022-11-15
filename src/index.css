@@ -15,6 +15,7 @@ nav {
   height: fit-content;
   padding: 0px 80px;
   background-color: #333a3a;
+  border: none;
 }
 
 nav.light {
@@ -90,9 +91,9 @@ li {
   color: #395b64;
 }
 
-.nav-link:active {
+/* .nav-link:active {
   color: aquamarine;
-}
+} */
 
 .nav-link.light.active {
   color: #e7f6f2;

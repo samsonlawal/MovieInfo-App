@@ -102,7 +102,7 @@
   color: #395b64;
   transition: ease-in-out 0.5s;
   display: inline-block;
-  margin-right: 15px;
+  margin: 0px 15px 15px 0px;
 }
 
 .trailer:hover {
