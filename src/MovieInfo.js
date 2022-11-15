@@ -9,6 +9,9 @@ export default function MovieInfo(props) {
   const [loadMore, setLoadMore] = useState(8);
   let totalmapped = props.casts.length;
 
+  let header = document.getElementById("header");
+  header.style.display = "none";
+
   const BtnMore = () => {
     if (document.getElementById("show-more").textContent == "Show More") {
       setLoadMore(totalmapped);

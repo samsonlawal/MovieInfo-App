@@ -203,16 +203,19 @@ function App() {
     tvElem.classList.remove("active");
     movieElem.classList.remove("active");
     book.classList.remove("active");
+    seacrhBar.classList.remove("active-bar");
   } else if (currentAPI === tvAPI) {
     tvElem.classList.add("active");
     home.classList.remove("active");
     movieElem.classList.remove("active");
     book.classList.remove("active");
+    seacrhBar.classList.remove("active-bar");
   } else if (currentAPI === popularMovieAPI) {
     movieElem.classList.add("active");
     home.classList.remove("active");
     tvElem.classList.remove("active");
     book.classList.remove("active");
+    seacrhBar.classList.remove("active-bar");
   } else if (currentAPI === searchAPI) {
     movieElem.classList.remove("active");
     home.classList.remove("active");
@@ -224,7 +227,6 @@ function App() {
     movieElem.classList.remove("active");
     home.classList.remove("active");
     tvElem.classList.remove("active");
-    seacrhBar.classList.remove("active-bar");
   }
 
   // MOVIE-INFO
@@ -273,9 +275,6 @@ function App() {
       });
 
     console.log(movieData.currentMovie);
-
-    let header = document.getElementById("header");
-    header.style.display = "none";
 
     console.log(movieData.movies);
     console.log(filtered[0].media_type);

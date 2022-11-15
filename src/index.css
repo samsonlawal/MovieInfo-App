@@ -136,10 +136,10 @@ input.light {
   color: #e7f6f2;
 }
 
-.active-bar {
+/* .active-bar {
   border: 2px solid #e7f6f2;
   color: #e7f6f2;
-}
+} */
 
 /* Cards Section */
 
@@ -488,4 +488,3 @@ section.light {
     background-color: #333a3a;
   }
 }
-
