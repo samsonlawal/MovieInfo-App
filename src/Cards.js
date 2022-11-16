@@ -15,6 +15,7 @@ export default function Cards(props) {
           className="poster-div__img"
           src={props.posterPath}
           alt={props.movieTitle}
+          loading="lazy"
         />
         <div className="poster-div__overlay">
           {/* <button>See Details</button> */}

@@ -15,6 +15,7 @@ export default function Casts(props) {
           }
           // alt={props.casts[0].name}
           className="cast-image"
+          loading="lazy"
         />
       </div>
       <div className="cast-name">

@@ -7,7 +7,6 @@ import Footer from "./Footer";
 import { useRef } from "react";
 import MovieInfo from "./MovieInfo";
 import NoBookmarkPage from "./NoBookmarkPage";
-
 function App() {
   // State for the movie info
   const [movieData, setMovieData] = React.useState({
@@ -79,8 +78,10 @@ function App() {
         />
       );
     })
-  ) : (
+  ) : currentAPI === "bookmark" ? (
     <NoBookmarkPage />
+  ) : (
+    ""
   );
 
   // State for the input value
@@ -319,9 +320,7 @@ function App() {
     setMovieData({
       ...movieData,
       API: currentAPI,
-      movies: JSON.parse(localStorage.getItem("bookmarkedMovie"))
-        ? JSON.parse(localStorage.getItem("bookmarkedMovie"))
-        : "",
+      movies: JSON.parse(localStorage.getItem("bookmarkedMovie")),
     });
   }
 
