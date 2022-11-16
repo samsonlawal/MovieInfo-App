@@ -21,7 +21,7 @@ export default function Navbar(props) {
               id="input"
               autoComplete="on"
               onKeyPress={props.handleKeyPress}
-              type="text"
+              type="search"
               placeholder="Quick Search"
               value={props.value}
               onChange={props.handleChange}

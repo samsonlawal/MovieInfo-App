@@ -114,6 +114,8 @@ function App() {
 
   // TRENDING
   const trending = (event) => {
+    document.getElementById("input").value = "";
+
     event.preventDefault();
 
     fetch(trendingAPI)
@@ -132,6 +134,7 @@ function App() {
   //MOVIE
   const movie = (event) => {
     event.preventDefault();
+    document.getElementById("input").value = "";
 
     fetch(popularMovieAPI)
       .then((res) => res.json())
@@ -158,6 +161,8 @@ function App() {
 
   // TV SHOWS
   const tv = (event) => {
+    document.getElementById("input").value = "";
+
     event.preventDefault();
 
     currentAPI = tvAPI;
@@ -316,6 +321,8 @@ function App() {
   }
 
   function bookmarkFunc() {
+    document.getElementById("input").value = "";
+
     currentAPI = "bookmark";
     setMovieData({
       ...movieData,
