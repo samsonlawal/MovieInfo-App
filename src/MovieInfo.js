@@ -99,8 +99,19 @@ export default function MovieInfo(props) {
     );
   });
 
+  let bookmark = props.bookmark;
+  let bookmarkLength = bookmark?.length;
+
   let bookmarkText = document.getElementById("bookmark").innerText;
-  let bookmarkChecker = props.bookmark.some((el) => el.id === props.movie.id);
+  let bookmarkChecker = false;
+
+  for (let i = 0; i < bookmarkLength; i++) {
+    if (bookmark[i].id === props.movie.id) {
+      bookmarkChecker = true;
+    }
+  }
+
+  // props.bookmark.some((el) => el.id === props.movie.id);
 
   bookmarkChecker
     ? (bookmarkText = `Remove Bookmark <i className="fa-solid fa-bookmark"></i>`)
