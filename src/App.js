@@ -7,8 +7,8 @@ import Footer from "./Footer";
 import { useRef } from "react";
 import MovieInfo from "./MovieInfo";
 import NoBookmarkPage from "./NoBookmarkPage";
-import noPoster from "./images.jpg";
-import noposter from "./avatar.webp";
+import noPoster from "./noPoster.png";
+import noposter from "./images.jpg";
 function App() {
   // State for the movie info
   const [movieData, setMovieData] = React.useState({
