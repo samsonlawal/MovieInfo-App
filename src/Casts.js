@@ -1,4 +1,5 @@
 import React from "react";
+import poster from "./poster.jpg";
 
 export default function Casts(props) {
   let light = props.lightMode ? "light" : "";
@@ -7,12 +8,7 @@ export default function Casts(props) {
     <div className="cast">
       <div className="img-div">
         <img
-          src={
-            props.castPath
-              ? `${props.backdrop}${props.castPath}`
-              : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__480.png"
-            // "./avatar.webp"
-          }
+          src={props.castPath ? `${props.backdrop}${props.castPath}` : poster}
           // alt={props.casts[0].name}
           className="cast-image"
           loading="lazy"

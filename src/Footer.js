@@ -61,7 +61,7 @@ export default function Footer(props) {
         </div>
       )}
       <p className="copyright">
-        copyright © 2021{" "}
+        Copyright © 2023{" "}
         <a href="https://www.twitter.com/samsonlawal_" target="blank_">
           Samson
         </a>

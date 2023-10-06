@@ -1,5 +1,5 @@
 import "./index.css";
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "./Header";
 import Cards from "./Cards";
 // import Popup from "./Popup";
@@ -7,6 +7,8 @@ import Footer from "./Footer";
 import { useRef } from "react";
 import MovieInfo from "./MovieInfo";
 import NoBookmarkPage from "./NoBookmarkPage";
+import noPoster from "./images.jpg";
+import noposter from "./avatar.webp";
 function App() {
   // State for the movie info
   const [movieData, setMovieData] = React.useState({
@@ -20,10 +22,25 @@ function App() {
     casts: "",
   });
 
-  const [lightMode, setLightMode] = React.useState(false);
+  let titleAPI;
+  const [lightMode, setLightMode] = React.useState(
+    JSON.parse(localStorage.getItem("theme"))
+  );
   function toggleLightMode() {
     setLightMode((prevMode) => !prevMode);
+    // console.log(lightMode);
   }
+
+  useEffect(() => {
+    const datA = window.localStorage.getItem("theme");
+    if (datA !== null) {
+      setLightMode(JSON.parse(datA));
+    }
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem("theme", JSON.stringify(lightMode));
+  }, [lightMode]);
 
   const trendingAPI = `https://api.themoviedb.org/3/trending/all/week?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US`;
   const popularMovieAPI =
@@ -48,7 +65,7 @@ function App() {
           totalResults: data.total_results,
         });
       });
-  }, []);
+  }, [trendingAPI]);
 
   const numberOfPages = movieData.totalPages;
 
@@ -56,7 +73,7 @@ function App() {
   let poster = `https://www.themoviedb.org/t/p/w500/`;
 
   // mapping over the array of objects containing movie info
-  const MovieCard = movieData.movies.length ? (
+  const MovieCard = movieData.movies?.length ? (
     movieData.movies.map((item) => {
       return (
         <Cards
@@ -65,9 +82,7 @@ function App() {
           }
           date={item.release_date || item.first_air_date || "Null"}
           posterPath={
-            item.poster_path
-              ? `${poster}${item.poster_path}`
-              : "https://www.prokerala.com/movies/assets/img/no-poster-available.jpg"
+            item.poster_path ? `${poster}${item.poster_path}` : noPoster
           }
           id={item.id}
           key={item.id}
@@ -83,7 +98,6 @@ function App() {
   ) : (
     ""
   );
-
   // State for the input value
   const [movieSearch, setMovieSearch] = React.useState("");
 
@@ -210,18 +224,21 @@ function App() {
     movieElem.classList.remove("active");
     book.classList.remove("active");
     seacrhBar.classList.remove("active-bar");
+    titleAPI = "Trending";
   } else if (currentAPI === tvAPI) {
     tvElem.classList.add("active");
     home.classList.remove("active");
     movieElem.classList.remove("active");
     book.classList.remove("active");
     seacrhBar.classList.remove("active-bar");
+    titleAPI = "TV Series";
   } else if (currentAPI === popularMovieAPI) {
     movieElem.classList.add("active");
     home.classList.remove("active");
     tvElem.classList.remove("active");
     book.classList.remove("active");
     seacrhBar.classList.remove("active-bar");
+    titleAPI = "Movies";
   } else if (currentAPI === searchAPI) {
     movieElem.classList.remove("active");
     home.classList.remove("active");
@@ -233,6 +250,7 @@ function App() {
     movieElem.classList.remove("active");
     home.classList.remove("active");
     tvElem.classList.remove("active");
+    titleAPI = "Bookmarks";
   }
 
   // MOVIE-INFO
@@ -267,7 +285,7 @@ function App() {
 
     individualAPI = `https://api.themoviedb.org/3/${mediaType}/${currentID}?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US&append_to_response=videos,credits,media_type,`;
 
-    const newCurrentMovie = filtered.length > 0 ? filtered[0] : null;
+    // const newCurrentMovie = filtered.length > 0 ? filtered[0] : null;
 
     fetch(individualAPI)
       .then((res) => res.json())
@@ -333,14 +351,12 @@ function App() {
 
   return (
     <div className="App">
-      {/* <h1 className="topTitle">Trending</h1> */}
       <Header
         handleSubmit={handleSubmit}
         handleChange={handleChange}
         value={movieSearch}
         trending={trending}
         movie={movie}
-        // upcomingMovie={upcomingMovie}
         tv={tv}
         inputRef={inputRef}
         toggleLightMode={toggleLightMode}
@@ -349,7 +365,12 @@ function App() {
       />
       {movieData.currentMovie == null ? (
         <>
-          <section className={lightMode ? "light" : ""}>{MovieCard}</section>
+          <section className={lightMode ? "light" : ""}>
+            <h3 className={`currentPageName ${lightMode ? "light" : ""}`}>
+              {titleAPI}
+            </h3>
+            {MovieCard}
+          </section>
           <Footer
             numberOfPages={numberOfPages}
             nextPage={nextPage}

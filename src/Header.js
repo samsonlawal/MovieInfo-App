@@ -56,7 +56,7 @@ export default function Navbar(props) {
             </li>
             <li>
               <p className={`nav-link ${light}`} id="tv" onClick={props.tv}>
-                TV Shows
+                TV Series
               </p>
             </li>
             <li>

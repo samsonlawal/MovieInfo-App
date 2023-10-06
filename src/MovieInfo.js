@@ -2,6 +2,8 @@ import React from "react";
 import { useState } from "react";
 import Casts from "./Casts";
 import "./Overview.css";
+// import "./index.css";
+import Footer from "./Footer";
 
 export default function MovieInfo(props) {
   let light = props.lightMode ? "light" : "";
@@ -92,7 +94,7 @@ export default function MovieInfo(props) {
         id={item.id}
         key={item.id}
         backdrop="https://image.tmdb.org/t/p/original/"
-        castName={item.name}
+        castName={item.name.split(" ").slice(0, 2).join(" ")}
         character={item.character}
         lightMode={props.lightMode}
       />
@@ -118,7 +120,7 @@ export default function MovieInfo(props) {
     : (bookmarkText = 'Bookmark <i className="fa-solid fa-bookmark"></i>');
 
   return (
-    <div className="container">
+    <div className={`container ${light}`}>
       <div
         className="overview-top"
         style={{ backgroundImage: `url(${backdrop}${backdrop_path})` }}
@@ -181,17 +183,33 @@ export default function MovieInfo(props) {
       </div>
 
       <div className={`director-casts ${light}`}>
-        <h3 className={`casts-title ${light}`}>Casts</h3>
+        <h3 className={`casts-title ${light}`}>
+          <b>Casts</b>
+        </h3>
         <div className="casts">
-          {castCard}{" "}
-          <button
-            className={`show-more ${light}`}
-            id="show-more"
-            onClick={BtnMore}
-          >
-            Show More
-          </button>
+          {castCard}
+          {totalmapped > 8 ? (
+            <button
+              className={`show-more ${light}`}
+              id="show-more"
+              onClick={BtnMore}
+            >
+              Show More
+            </button>
+          ) : (
+            ""
+          )}
         </div>
+      </div>
+
+      <div className={`footer-div ${light}`}>
+        <p className="copyright">
+          Copyright © 2023{" "}
+          <a href="https://www.twitter.com/samsonlawal_" target="blank_">
+            Samson
+          </a>
+          .
+        </p>
       </div>
     </div>
   );
