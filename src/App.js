@@ -45,7 +45,7 @@ function App() {
   const trendingAPI = `https://api.themoviedb.org/3/trending/all/week?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US`;
   const popularMovieAPI =
     "https://api.themoviedb.org/3/movie/popular?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US";
-  const tvAPI = `https://api.themoviedb.org/3/tv/popular?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US`;
+  const tvAPI = `https://api.themoviedb.org/3/trending/tv/day?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US`;
   let individualAPI;
 
   var currentAPI = movieData.API;

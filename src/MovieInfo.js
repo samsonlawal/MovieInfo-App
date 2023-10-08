@@ -53,9 +53,9 @@ export default function MovieInfo(props) {
   let results;
   let key = "";
   const trailerAPI = `https://api.themoviedb.org/3/${mediaType}/${props.movie.id}/videos?api_key=812b448acde6be144d26b93a3e68cb8d&language=en-US`;
-
   results = props.videos;
-  for (let i = 0; i < results.length; i++) {
+
+  for (let i = 1; i < results.length; i++) {
     let type = results[i].type;
     // let name = results[i].name;
     let official = results[i].official;
@@ -66,14 +66,17 @@ export default function MovieInfo(props) {
       type === "Trailer" &&
       official === true
     ) {
-      results = results[i].key;
       // .replace(/[^a-zA-Z ]/g, "")
+      results = results[i].key;
     }
   }
+
   key = results;
+
   let trailer;
 
   trailer = `https://www.youtube.com/embed/${key}`;
+
   let blank = " ";
   function closeTrailer() {
     // let url = document.getElementById("video").getAttribute("src");
