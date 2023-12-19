@@ -1,5 +1,6 @@
   <div align="center">
-  <h2>This is an Open-Source project. Feel free to contribute in it.</h2>
+<!--   <h2>This is an Open-Source project. Feel free to contribute in it.</h2> -->
+
 
   </div>
   
